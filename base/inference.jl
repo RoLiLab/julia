@@ -1856,7 +1856,7 @@ function abstract_call(f::ANY, fargs::Union{Tuple{},Vector{Any}}, argtypes::Vect
     t = pure_eval_call(f, argtypes, atype, sv)
     t !== false && return t
 
-    if istopfunction(tm, f, :typejoin) || f === return_type
+    if istopfunction(tm, f, :promote_type) || istopfunction(tm, f, :typejoin)
         return Type # don't try to infer these function edges directly -- it won't actually come up with anything useful
     elseif length(argtypes) == 2 && istopfunction(tm, f, :typename)
         return typename_static(argtypes[2])
